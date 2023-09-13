@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
+require('dotenv').config({ path: './.env' }); 
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -57,6 +58,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(process.env)
+    }),
     new CopyPlugin({
       patterns: [
         {

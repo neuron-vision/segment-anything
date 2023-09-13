@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "build": "yarn run clean-dist && webpack --config=configs/webpack/prod.js && mv dist/*.wasm dist/js",
+    "build": "env-cmd -f .env yarn run clean-dist && webpack --config=configs/webpack/prod.js && mv dist/*.wasm dist/js",
     "clean-dist": "rimraf dist/*",
     "lint": "eslint './src/**/*.{js,ts,tsx}' --quiet",
-    "start": "yarn run start-dev",
-    "test": "yarn run start-model-test",
-    "start-dev": "webpack serve --config=configs/webpack/dev.js"
+    "start": "env-cmd -f .env yarn run start-dev",
+    "test": "env-cmd -f .env yarn run start-model-test",
+    "start-dev": "env-cmd -f .env webpack serve --config=configs/webpack/dev.js"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
@@ -26,7 +26,7 @@
     "babel-loader": "^8.2.5",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
-    "dotenv": "^16.0.2",
+    "dotenv": "^16.3.1",
     "dotenv-webpack": "^8.0.1",
     "eslint": "^8.22.0",
     "eslint-plugin-react": "^7.31.0",
@@ -52,11 +52,14 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "env-cmd": "^10.1.0",
     "npyjs": "^0.4.0",
     "onnxruntime-web": "^1.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-notifications-component": "^4.0.1",
+    "react-refresh": "^0.14.0",
     "underscore": "^1.13.6",
-    "react-refresh": "^0.14.0"
+    "url-loader": "^4.1.1"
   }
 }
