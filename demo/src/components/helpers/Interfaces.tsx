@@ -6,6 +6,14 @@
 
 import { Tensor } from "onnxruntime-web";
 
+export interface segmentsRows {
+  clicks?: Array<modelInputProps>;
+  feed:any;
+  name: string;
+  id:string;
+  num_points:number;
+}
+
 export interface modelScaleProps {
   samScale: number;
   height: number;

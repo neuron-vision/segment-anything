@@ -5,7 +5,7 @@
 // LICENSE file in the root directory of this source tree.
 
 import { createContext } from "react";
-import { modelInputProps } from "../helpers/Interfaces";
+import { modelInputProps, segmentsRows } from "../helpers/Interfaces";
 
 interface contextProps {
   clicks: [
@@ -20,8 +20,17 @@ interface contextProps {
     maskImg: HTMLImageElement | null,
     setMaskImg: (e: HTMLImageElement | null) => void
   ];
+  tableRows: [
+    rows: segmentsRows[],
+    setRows: (e: segmentsRows[] ) => void
+  ];
+
+  last_feeds: [
+    last_feeds: any ,
+    setLastFeeds: (e: any) => void
+  ];
 }
 
 const AppContext = createContext<contextProps | null>(null);
 
-export default AppContext;
+export default AppContext; 

@@ -14,6 +14,8 @@ const AppContextProvider = (props: {
   const [clicks, setClicks] = useState<Array<modelInputProps> | null>(null);
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [maskImg, setMaskImg] = useState<HTMLImageElement | null>(null);
+  const [tablerows, setTableRows] = useState<any[]>([]);
+  const [last_feeds, setLastFeeds] = useState<any>(null);
 
   return (
     <AppContext.Provider
@@ -21,6 +23,8 @@ const AppContextProvider = (props: {
         clicks: [clicks, setClicks],
         image: [image, setImage],
         maskImg: [maskImg, setMaskImg],
+        tableRows: [tablerows, setTableRows],
+        last_feeds: [last_feeds, setLastFeeds]
       }}
     >
       {props.children}

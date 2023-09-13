@@ -58,11 +58,21 @@ function image_as_base64(img:HTMLImageElement):string{
 const EMBEDDER_URL: string = process.env.NODE_ENV_EMBEDER_URL || "NOT_FOUND~~!!!"
 
 const App = () => {
+
+  if (!AppContext) {
+    // Handle the error. Perhaps return null, throw an error, or provide some defaults.
+  }
   const {
+    //@ts-ignore
     clicks: [clicks],
+    //@ts-ignore
     image: [, setImage],
+    //@ts-ignore
     maskImg: [, setMaskImg],
-  } = useContext(AppContext)!;
+   //@ts-ignore
+    last_feeds: [last_feeds, setLastFeeds]
+  } = useContext(AppContext);
+
   const [model, setModel] = useState<InferenceSession | null>(null); // ONNX model
   const [tensor, setTensor] = useState<Tensor | null>(null); // Image embedding tensor
 
@@ -175,10 +185,21 @@ const App = () => {
           modelScale,
         });
         if (feeds === undefined) return;
+
+        var to_save = {
+          point_coords: feeds['point_coords'],
+          point_labels: feeds['point_labels'],
+          orig_im_size: feeds['orig_im_size'],
+          mask_input: feeds['mask_input'],
+          has_mask_input: feeds['has_mask_input'], 
+        }
+        var a = JSON.stringify(to_save)
+        setLastFeeds(to_save)
+        console.log('feeds', a.length)
+
         // Run the SAM ONNX model with the feeds returned from modelData()
         const results = await model.run(feeds);
         const output = results[model.outputNames[0]];
-        console.log('output', output)
         // The predicted mask returned from the ONNX model is an array which is 
         // rendered as an HTML image using onnxMaskToImage() from maskUtils.tsx.
         setMaskImg(onnxMaskToImage(output.data, output.dims[2], output.dims[3]));
